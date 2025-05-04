@@ -120,8 +120,9 @@ static void disp_flush(lv_disp_drv_t *disp_drv, const lv_area_t *area,
 }
 
 void HAL_SPI_TxCpltCallback(SPI_HandleTypeDef *hspi) {
+  //ILI9341_EndOfDrawBitmap();
   lv_disp_flush_ready(&disp_drv);
-  //	ILI9341_EndOfDrawBitmap();
+  
 }
 
 void disp_set_time(uint16_t min_counter, uint16_t sec_counter, uint16_t min_sum,
@@ -182,5 +183,22 @@ void disp_set_sc_voltage(uint8_t voltage, uint8_t sc_voltage_send_flag) {
     } else {
       lv_obj_set_style_bg_color(objects.sc_voltage_bar, lv_color_hex(0xff2acf4f), LV_PART_INDICATOR | LV_STATE_DEFAULT);
     }
+  }
+}
+
+void disp_set_message(char *msg, uint32_t color) {
+  lv_obj_set_style_bg_color(objects.messages_area, lv_color_hex(color),
+                            LV_PART_MAIN | LV_STATE_DEFAULT);
+  lv_textarea_set_text(objects.messages_area, msg);
+}
+
+void disp_set_icon(uint8_t icon_flag)
+{
+  if(icon_flag == flags.horn_flag)
+  {
+    if(flags.horn_flag)
+      lv_obj_clear_flag(objects.horn_icon, LV_OBJ_FLAG_HIDDEN);  
+    else 
+    lv_obj_add_flag(objects.horn_icon, LV_OBJ_FLAG_HIDDEN);
   }
 }

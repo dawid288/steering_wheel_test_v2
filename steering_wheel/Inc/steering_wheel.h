@@ -6,6 +6,9 @@
 #include "fdcan.h"
 #include "can_controller.h"
 #include "ui.h"
+#include "lvgl.h"
+#include "ili9341.h"
+#include "lcd_controller.h"
 
 typedef struct {
   uint8_t send_vehicle_speed_flag;

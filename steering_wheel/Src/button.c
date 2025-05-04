@@ -61,8 +61,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
           case BUTTON_FULL_GAS_Pin:
             CAN_SendMessage(buttons[i].can_id, tx_data, 2);
             break;
-          case BUTTON_HALF_GAS_Pin:
+          case BUTTON_HORN_Pin:
             CAN_SendMessage(buttons[i].can_id, tx_data, 2);
+            flags.horn_flag = 1;
             break;
           case BUTTON_TIME_RESET_Pin:
             if (time_reset_button_press_counter > 0) {
@@ -108,8 +109,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
           case BUTTON_FULL_GAS_Pin:
             CAN_SendMessage(buttons[i].can_id, tx_data, 2);
             break;
-          case BUTTON_HALF_GAS_Pin:
+          case BUTTON_HORN_Pin:
             CAN_SendMessage(buttons[i].can_id, tx_data, 2);
+            flags.horn_flag = 0;
             break;
           case BUTTON_TIME_RESET_Pin:
             CAN_SendMessage(buttons[i].can_id, tx_data, 2);

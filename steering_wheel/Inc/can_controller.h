@@ -13,7 +13,7 @@
 extern FDCAN_TxHeaderTypeDef tx_header;
 extern FDCAN_RxHeaderTypeDef rx_header;
 
-extern uint8_t rx_data;
+extern uint8_t rx_data[8];
 extern uint8_t tx_data[8];
 
 extern uint32_t tx_mailbox;

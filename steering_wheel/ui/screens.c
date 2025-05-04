@@ -220,6 +220,7 @@ void create_screen_main() {
             lv_obj_set_pos(obj, 269, 44);
             lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
             lv_img_set_src(obj, &img_horn);
+            lv_obj_add_flag(obj, LV_OBJ_FLAG_HIDDEN);
         }
         {
             // shortwave_icon
@@ -228,6 +229,7 @@ void create_screen_main() {
             lv_obj_set_pos(obj, 267, 44);
             lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
             lv_img_set_src(obj, &img_shortwave);
+            lv_obj_add_flag(obj, LV_OBJ_FLAG_HIDDEN);
         }
     }
     

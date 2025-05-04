@@ -1,6 +1,6 @@
 
-#ifndef LCDCONTROLLER_H_
-#define LCDCONTROLLER_H_
+#ifndef LCD_CONTROLLER_H
+#define LCD_CONTROLLER_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -15,6 +15,8 @@ extern "C" {
 #include "ili9341.h"
 #include "ui.h"
 #include <stdio.h>
+#include "steering_wheel.h"
+#include "screens.h"
 
 /*********************
  *      DEFINES
@@ -45,6 +47,10 @@ void disp_set_lap_number(uint8_t lap_number, uint8_t lap_send_flag);
 void disp_set_vehicle_speed(uint8_t rx_data, uint8_t send_vehicle_speed_flag);
 
 void disp_set_sc_voltage(uint8_t voltage, uint8_t sc_voltage_send_flag);
+
+void disp_set_message(char *msg, uint32_t color);
+
+void disp_set_icon(uint8_t icon_flag);
 
 /**********************
  *      MACROS

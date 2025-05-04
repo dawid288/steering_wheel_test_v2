@@ -3,7 +3,7 @@
 FDCAN_TxHeaderTypeDef tx_header;
 FDCAN_RxHeaderTypeDef rx_header;
 
-uint8_t rx_data;
+uint8_t rx_data[8];
 uint8_t tx_data[8];
 
 void CAN_Init(FDCAN_HandleTypeDef *hfdcan) {

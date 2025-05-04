@@ -1,40 +1,5 @@
-/*
- * ili9341.c
- *
- *  Created on: 2019/12/26
- *      Author: Kotetsu Yamamoto
- *      Copyright [Kotetsu Yamamoto]
-
-I refer
-https://github.com/dtnghia2206/TFTLCD/blob/master/TFTLCD/ILI9341/ILI9341_Driver.c
-
-from Original source:
-
-MIT License
-
-Copyright (c) 2019 NghiaDT
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
- */
-
 #include "ili9341.h"
+#include "main.h"
 
 // This function is for compatible HiLetgo ILI9341
 
@@ -57,7 +22,9 @@ static void DC_H(void);
 static void LED_H(void);
 
 void sendSPI(uint8_t *data, int size) {
-  HAL_SPI_Transmit(&hspi1, data, size, HAL_MAX_DELAY);
+  //CS_L();   
+ HAL_SPI_Transmit(&hspi1, data, size, HAL_MAX_DELAY);
+ //HAL_GPIO_WritePin(LCD_CS_GPIO_Port, LCD_CS_Pin, GPIO_PIN_SET);
 }
 
 void Delay(uint16_t ms) { HAL_Delay(ms); }
@@ -249,6 +216,7 @@ static void ConvHL(uint8_t *s, int32_t l) {
 
 void ILI9341_DrawBitmap(uint16_t w, uint16_t h, uint8_t *s) {
   // Enable to access GRAM
+  //ILI9341_SetWindow(0, 0, w - 1, h - 1);
   LCD_WR_REG(0x2c);
 
   DC_H();
@@ -258,15 +226,17 @@ void ILI9341_DrawBitmap(uint16_t w, uint16_t h, uint8_t *s) {
 
 void ILI9341_DrawBitmapDMA(uint16_t w, uint16_t h, uint8_t *s) {
   // Enable to access GRAM
+  //ILI9341_SetWindow(0, 0, w - 1, h - 1);
   LCD_WR_REG(0x2c);
 
   DC_H();
   ConvHL(s, (int32_t)w * h * 2);
+  //CS_L();
   HAL_SPI_Transmit_DMA(&hspi1, (uint8_t *)s, w * h * 2);
 }
 
 void ILI9341_EndOfDrawBitmap(void) {
-  // do something here
+  //HAL_GPIO_WritePin(LCD_CS_GPIO_Port, LCD_CS_Pin, GPIO_PIN_SET);
 }
 
 void ILI9341_Reset(void) {
